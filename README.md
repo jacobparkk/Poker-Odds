@@ -27,7 +27,7 @@ This program calculates the approximate odds of winning a hand in Texas Hold'em 
 
 
 ## Example
-python3 poker.py
+python3 poker_odds.py
 
 Enter your two hole cards:
 Enter card 1 (e.g., AH for Ace of Hearts, TS for Ten of Spades): AS
