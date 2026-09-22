@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Play Texas Hold'em, see live equity, and learn each decision." />
+  <title>Riverwise — Poker Trainer</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="app-shell">
+    <header class="topbar">
+      <div><p class="eyebrow">TEXAS HOLD'EM LAB</p><h1>Riverwise</h1></div>
+      <div class="mode-switch" role="group" aria-label="Learning mode">
+        <button data-mode="play" class="active">Play</button>
+        <button data-mode="odds">Odds</button>
+        <button data-mode="trainer">Trainer</button>
+      </div>
+    </header>
+
+    <section class="game-grid">
+      <aside class="panel stats-panel">
+        <div class="stat"><span>Bankroll</span><strong id="bankroll">1,000</strong></div>
+        <div class="stat"><span>Pot</span><strong id="pot">0</strong></div>
+        <div class="stat"><span>Street</span><strong id="street">Ready</strong></div>
+        <div class="stat"><span>Opponent</span><strong id="opponentStack">1,000</strong></div>
+        <div class="divider"></div>
+        <label class="range-label">Simulation quality
+          <select id="iterations"><option value="1500">Fast</option><option value="5000" selected>Balanced</option><option value="12000">Precise</option></select>
+        </label>
+        <button id="newHand" class="primary">Deal a hand</button>
+      </aside>
+
+      <section class="table-wrap" aria-label="Poker table">
+        <div class="table">
+          <div class="seat opponent"><span class="avatar">AI</span><div id="opponentCards" class="cards"></div><small id="opponentBet">Bet: 0</small></div>
+          <div id="board" class="board cards"></div>
+          <div class="pot-chip">POT <strong id="tablePot">0</strong></div>
+          <div class="seat hero"><span class="avatar">YOU</span><div id="heroCards" class="cards"></div><small id="heroBet">Bet: 0</small></div>
+        </div>
+        <div id="message" class="message" aria-live="polite">Choose a mode, then deal a hand.</div>
+        <div class="actions">
+          <button id="fold" disabled>Fold</button><button id="checkCall" disabled>Check</button>
+          <div class="raise-box"><input id="raiseAmount" type="range" min="20" max="300" step="10" value="40" disabled><output id="raiseValue">40</output></div>
+          <button id="raise" class="accent" disabled>Raise</button>
+        </div>
+      </section>
+
+      <aside class="panel insight-panel">
+        <div class="equity-ring" id="equityRing"><div><strong id="equity">—</strong><span>equity</span></div></div>
+        <div class="odds-grid"><div><span>Win</span><strong id="winPct">—</strong></div><div><span>Tie</span><strong id="tiePct">—</strong></div><div><span>Pot odds</span><strong id="potOdds">—</strong></div></div>
+        <div id="trainerCard" class="trainer-card hidden"><p class="eyebrow">COACH'S READ</p><h2 id="recommendation">—</h2><p id="explanation">Deal a hand to begin.</p><div id="factors" class="factors"></div></div>
+        <details><summary>How to play</summary><p>Make the best five-card hand using any combination of your two cards and five community cards. Betting happens before the flop, then after the flop, turn, and river.</p><ol><li>Fold gives up the pot.</li><li>Check continues for free; call matches a bet.</li><li>Raise increases the price to continue.</li></ol></details>
+      </aside>
+    </section>
+  </main>
+  <script src="poker.js"></script>
+</body>
+</html>
