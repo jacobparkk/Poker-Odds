@@ -1,0 +1,10 @@
+const fs=require("fs"),vm=require("vm"),assert=require("assert");
+const noop=()=>{};global.window=global;global.document={getElementById:()=>({classList:{toggle:noop},style:{setProperty:noop},addEventListener:noop}),querySelectorAll:()=>[]};global.setTimeout=noop;
+vm.runInThisContext(fs.readFileSync("poker.js","utf8"));const E=global.window?.PokerEngine||PokerEngine;
+const rank=c=>E.evaluate(c)[0];
+assert.equal(rank(["As","Ks","Qs","Js","Ts","2d","3c"]),8,"royal flush");
+assert.equal(rank(["As","2d","3c","4h","5s","Kd","Qc"]),4,"wheel straight");
+assert.equal(rank(["Ah","Ad","Ac","Ks","Kd","2c","3s"]),6,"full house");
+assert(E.compare(E.evaluate(["Ah","Ad","Kc","Qs","9h","3d","2c"]),E.evaluate(["As","Ac","Jc","Ts","9d","3c","2d"]))>0,"pair kicker");
+assert.equal(E.compare(E.evaluate(["As","Kd","Qh","Jc","Ts","2d","3c"]),E.evaluate(["Ah","Kc","Qs","Jd","Tc","4d","5c"])),0,"board-equivalent tie");
+console.log("Poker engine tests passed.");
